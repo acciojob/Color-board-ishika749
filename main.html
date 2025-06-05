@@ -1,16 +1,63 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Color Board</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      margin: 20px;
+      font-family: Arial, sans-serif;
+    }
+    #board {
+      display: grid;
+      grid-template-columns: repeat(40, 20px);
+      gap: 2px;
+      max-width: 850px;
+    }
+    .box {
+      width: 20px;
+      height: 20px;
+      background-color: #eee;
+      transition: background-color 0.3s;
+      cursor: pointer;
+    }
+  </style>
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+  <div id="board"></div>
 
+  <script>
+    const board = document.getElementById('board');
+    const boxCount = 800;
+
+    // Function to generate random hex color
+    function getRandomColor() {
+      const letters = "0123456789ABCDEF";
+      let color = "#";
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    for (let i = 0; i < boxCount; i++) {
+      const box = document.createElement('div');
+      box.classList.add('box');
+
+      box.addEventListener('mouseenter', () => {
+        box.style.backgroundColor = getRandomColor();
+      });
+
+      box.addEventListener('mouseleave', () => {
+        box.style.backgroundColor = '#eee';
+      });
+
+      board.appendChild(box);
+    }
+  </script>
 </body>
-
 </html>
+
