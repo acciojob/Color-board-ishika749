@@ -1,63 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
   <title>Color Board</title>
   <style>
     body {
+      background: #111;
+      margin: 0;
       display: flex;
       justify-content: center;
-      margin: 20px;
-      font-family: Arial, sans-serif;
+      align-items: center;
+      min-height: 100vh;
     }
-    #board {
+
+    .container {
       display: grid;
-      grid-template-columns: repeat(40, 20px);
+      grid-template-columns: repeat(40, 15px); /* 40 columns for 800 boxes */
       gap: 2px;
-      max-width: 850px;
     }
-    .box {
-      width: 20px;
-      height: 20px;
-      background-color: #eee;
-      transition: background-color 0.3s;
-      cursor: pointer;
+
+    .square {
+      width: 15px;
+      height: 15px;
+      background-color: #1d1d1d;
+      transition: background-color 1s ease;
     }
   </style>
 </head>
 <body>
-  <div id="board"></div>
+  <div class="container" id="container"></div>
 
   <script>
-    const board = document.getElementById('board');
-    const boxCount = 800;
+    const container = document.getElementById('container');
+    const SQUARES = 800;
+    const colors = ['#e74c3c', '#8e44ad', '#3498db', '#e67e22', '#2ecc71'];
 
-    // Function to generate random hex color
-    function getRandomColor() {
-      const letters = "0123456789ABCDEF";
-      let color = "#";
-      for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
+    for (let i = 0; i < SQUARES; i++) {
+      const square = document.createElement('div');
+      square.classList.add('square');
+
+      square.addEventListener('mouseover', () => {
+        const color = getRandomColor();
+        square.style.backgroundColor = color;
+        setTimeout(() => {
+          square.style.backgroundColor = '#1d1d1d';
+        }, 1000);
+      });
+
+      container.appendChild(square);
     }
 
-    for (let i = 0; i < boxCount; i++) {
-      const box = document.createElement('div');
-      box.classList.add('box');
-
-      box.addEventListener('mouseenter', () => {
-        box.style.backgroundColor = getRandomColor();
-      });
-
-      box.addEventListener('mouseleave', () => {
-        box.style.backgroundColor = '#eee';
-      });
-
-      board.appendChild(box);
+    function getRandomColor() {
+      return colors[Math.floor(Math.random() * colors.length)];
     }
   </script>
 </body>
 </html>
+
 
